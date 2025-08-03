@@ -28,6 +28,31 @@ export class AvailablePlacesComponent implements OnInit {
         error: () => {},
       });
 
+    // const subscription = this.httpClient
+    //   .get<{ places: Place[] }>('http://localhost:3000/places', {
+    //     observe: 'response',
+    //   })
+    //   .subscribe({
+    //     next: (response) => {
+    //       console.log(response);
+    //       console.log(response.body?.places);
+    //     },
+    //     complete: () => {},
+    //     error: () => {},
+    //   });
+
+    // const subscription = this.httpClient
+    //   .get<{ places: Place[] }>('http://localhost:3000/places', {
+    //     observe: 'events',
+    //   })
+    //   .subscribe({
+    //     next: (event) => {
+    //       console.log(event);
+    //     },
+    //     complete: () => {},
+    //     error: () => {},
+    //   });
+
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
