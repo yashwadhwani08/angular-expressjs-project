@@ -32,11 +32,23 @@ export class PlacesService {
   }
 
   addPlaceToUserPlaces(place: Place) {
-    this.userPlaces.update((prevPlaces) => [...prevPlaces, place]);
-    
-    return this.httpClient.put('http://localhost:3000/user-places', {
-      placeId: place.id,
-    });
+    const prevPlaces = this.userPlaces();
+    if (!prevPlaces.some((p) => p.id === place.id)) {
+      this.userPlaces.set([...prevPlaces, place]);
+    }
+    // Displaying to UI before actually sending data to backend is called Optimistic updating.
+    // There could be some problems, like backend API was not able to update the data on db
+    // Hence, we can catch error in map on this below code
+    return this.httpClient
+      .put('http://localhost:3000/user-places', {
+        placeId: place.id,
+      })
+      .pipe(
+        catchError((error) => {
+          this.userPlaces.set(prevPlaces);
+          return throwError(() => new Error('Failed to store selected place'));
+        })
+      );
   }
 
   removeUserPlace(place: Place) {}
