@@ -4,7 +4,7 @@
   } @if (error()) {
   <p class="fallback-text">{{ error() }}</p>
   } @if (userPlaces()) {
-  <app-places [places]="userPlaces()!" />
+  <app-places [places]="userPlaces()!" (selectPlace)="onSelectUserPlaces($event)"/>
   } @else if (userPlaces()?.length === 0) {
   <p class="fallback-text">Unfortunately, no places could be found.</p>
   }
