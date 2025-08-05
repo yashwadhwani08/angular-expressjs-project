@@ -33,4 +33,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 Below is a preview of the application's user interface:
 
-![Final UI Screenshot](image.png)
+![Final UI Screenshot](final-UI-image.png)
